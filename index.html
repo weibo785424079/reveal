@@ -1,40 +1,127 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
 
-		<title>reveal.js</title>
+    <title>reveal.js</title>
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/black.css" />
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>React Hook实践小结</section>
+        <section>
+		  	<section>React Hook是什么</section>
+		  	<section data-markdown>
+			  > Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性
+			</section>
+		</section>
+         <section>
+		  	<section>React Hook解决了什么问题</section>
+		  	<section data-markdown>
+			  > Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性
+			</section>
+			<section data-markdown>
+				* useState
+				* useCallback
+				* useRef
+				* useMemo
+				* useImprehandle
+				* useEffect
+				* useLayoutEffect
+				* useReducer
+				* useContext
+				* useDebugValue
+			</section>
+		</section>
+        </section>
+        <section>
+			Fiber与Hook
+			<section>
+				<p>
+react大致原理的理解程度
+				这边要和被分享人同步一下理解程度，不然很容易讲不清楚听不懂
+				首先要介绍fiber原理 ReactElement
+				然后引入hook初始化，更新过程
+				完整串联起来，说明组件hook的执行过程
+				常规的两个问题
+				为什么要在组件内使用hook
+				为什么不能再条件中使用hook
+				</p>
+			</section>
+		</section>
+        <section>
+          <section>
+			<h3>实践小结</h3>
+			<div>
+				紧扣主题，如何封装状态，以及如何不使用hook使用react的其他特性
+
+* 封装状态
+  逻辑状态 =》 请求封装loading 倒计时，toggle = 》 状态，触发状态的方法
+        useLogin
+  dom状态 useSize useVirtual
+* 执行副作用 监听dom绑定事件
+useWatch
+useRequest 基于请求封装loading，error状态，重新触发状态的方法，竞态
+
+useUserList id => list 结合useRequest =》 
+
+useModal
+     常规使用需要声明visible，Modal
+     直接暴露出封装了visible
+
 			</div>
-		</div>
+		  </section>
+          <section>
+            <section>
+              <pre>
+			  	<code data-trim data-noescape>
+					const a = 123;
+  				</code>
+  			</pre>
+            </section>
+          </section>
+        </section>
+		<section>
+			<h3>总结</h3>
+			<p class="fragment">优点：简洁的api，高复用，代码量少</p>
+			<p class="fragment">缺点：hook拆分过细也有一定的业务理解成本</p>
+			<p class="fragment">重点：理解react的运行机制，fiber，render，commitl流程尤为重要</p>
+		</section>
+		<section data-markdown>
+			## 参考链接
+			[https://reactjs.bootcss.com/docs/hooks-intro.html](https://reactjs.bootcss.com/docs/hooks-intro.html)
+			[https://juejin.cn/post/6900735030121725960](https://juejin.cn/post/6900735030121725960)
+			[https://juejin.cn/post/6894430381328728077](https://juejin.cn/post/6894430381328728077)
+			[https://juejin.cn/post/6844903985338400782](https://juejin.cn/post/6844903985338400782)
+		</section>
+      </div>
+    </div>
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        hash: true,
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+      });
+    </script>
+  </body>
 </html>

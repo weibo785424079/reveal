@@ -19,53 +19,57 @@
   <body>
     <div class="reveal">
       <div class="slides">
-        <section>React Hook实践小结</section>
         <section>
-		  	<section>React Hook是什么</section>
-		  	<section data-markdown>
-			  > Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性
-			</section>
+			React Hook实践小结
+			<div style="text-align:right">魏波</div>
 		</section>
-         <section>
-		  	<section>React Hook解决了什么问题</section>
+        <section>
+		  	<section>
+			  	<h3>提出问题</h3>
+			  	<p class='fragment' style="text-align:left">React Hook是什么 *</p>
+				<p class='fragment' style="text-align:left">React Hook解决了什么问题 *</p>
+				<p class='fragment' style="text-align:left">React Hook如何解决问题 (原理+实践) ***</p>
+			</section>
 		  	<section data-markdown>
-			  > Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性
+			* React Hook是什么
+			* 官方：Hook 是 React 16.8 的新增特性。
+				它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性
+			*解释: 即不使用class即可实现状态，类生命周期特性*
 			</section>
 			<section data-markdown>
 				* useState
 				* useCallback
 				* useRef
 				* useMemo
-				* useImprehandle
+				* useImperativeHandle
 				* useEffect
 				* useLayoutEffect
 				* useReducer
 				* useContext
 				* useDebugValue
 			</section>
+			<section data-markdown>
+			  #### React Hook解决了什么问题
+			  > Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性
+			</section>
+			<section data-markdown>
+			  #### React Hook如何解决问题 (原理+实践)
+			  > React Hook如何解决问题 (原理+实践)
+			</section>
+		 </section>
+         <section>
+		  	<section>React Hook如何解决问题</section>
 		</section>
         </section>
+        
+		<section>实例</section>
         <section>
-			Fiber与Hook
+			<section data-markdown="md/use-login.md"></section>
+			<section data-markdown="md/use-user-list.md"></section>
+			<section data-markdown="md/use-request.md"></section>
+			<section data-markdown="md/use-virtual-list.md"></section>
 			<section>
-				<p>
-react大致原理的理解程度
-				这边要和被分享人同步一下理解程度，不然很容易讲不清楚听不懂
-				首先要介绍fiber原理 ReactElement
-				然后引入hook初始化，更新过程
-				完整串联起来，说明组件hook的执行过程
-				常规的两个问题
-				为什么要在组件内使用hook
-				为什么不能再条件中使用hook
-				</p>
-			</section>
-		</section>
-        <section>
-          <section>
-			<h3>实践小结</h3>
-			<div>
 				紧扣主题，如何封装状态，以及如何不使用hook使用react的其他特性
-
 * 封装状态
   逻辑状态 =》 请求封装loading 倒计时，toggle = 》 状态，触发状态的方法
         useLogin
@@ -80,18 +84,27 @@ useModal
      常规使用需要声明visible，Modal
      直接暴露出封装了visible
 
-			</div>
+			</section>
 		  </section>
-          <section>
-            <section>
-              <pre>
-			  	<code data-trim data-noescape>
-					const a = 123;
-  				</code>
-  			</pre>
-            </section>
-          </section>
         </section>
+		<section>
+			Fiber与Hook
+			<section>
+				<p>
+				react大致原理的理解程度
+				这边要和被分享人同步一下理解程度，不然很容易讲不清楚听不懂
+				首先要介绍fiber原理 ReactElement
+				然后引入hook初始化，更新过程
+				完整串联起来，说明组件hook的执行过程
+				常规的两个问题
+				为什么要在组件内使用hook
+				为什么不能再条件中使用hook
+				</p>
+			</section>
+			<section>
+				 <iframe style="width: 1000px;height: 600px" data-src="https://weibo785424079.github.io/hook/"></iframe>
+			</section>
+		</section>
 		<section>
 			<h3>总结</h3>
 			<p class="fragment">优点：简洁的api，高复用，代码量少</p>

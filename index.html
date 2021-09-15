@@ -53,6 +53,12 @@
 			  > Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性
 			</section>
 			<section data-markdown>
+			  #### 类组件的不足
+			  * 状态逻辑难以复用很难，需要使用render props 或者 HOC，造成组件嵌套过程，难以理解阅读
+			  * 复杂度高，逻辑分散 componentDidMount绑定事件，componentWillUnmount解除绑定
+			  * this指向问题
+			</section>
+			<section data-markdown>
 			  #### React Hook如何解决问题 (原理+实践)
 			  > React Hook如何解决问题 (原理+实践)
 			</section>
@@ -102,7 +108,7 @@ useModal
 				</p>
 			</section>
 			<section>
-				 <iframe style="width: 1000px;height: 600px" data-src="https://weibo785424079.github.io/hook/"></iframe>
+				 <iframe style="width: 1400px;height: 600px" data-src="http://docs.taimei.com/Site/site-qian-duan/site-de-qian-duan-wen-dang/hook"></iframe>
 			</section>
 		</section>
 		<section>

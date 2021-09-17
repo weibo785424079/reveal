@@ -1,4 +1,4 @@
-* useVirtualList封装dom状态
+* useVirtualList dom + 事件 + 数据
 
 ```tsx
 import React from 'react';
@@ -32,3 +32,6 @@ export default () => {
   );
 };
 ```
+* 体现hook访问dom的便捷
+* 绑定dom事件
+* 根据dom状态封装数据的能力

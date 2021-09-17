@@ -1,6 +1,7 @@
-* useUserList 封录状态 id => useList
+* hook VS render-props
+* useUserList 通过id获取人员列表 id => useList
 
-```tsx
+```tsx [3-15|18-35]
 import React, { useState } from 'react';
 
 const useUserList = (id) => {
@@ -16,4 +17,26 @@ const useUserList = (id) => {
 const Demo = ({id}) => {
     const userList = useUserList(id);
 };
+
+class UserListWrap extends React.Component{
+    state = {
+        userList: []
+    }
+
+    componentDidMount() {
+        fetch().then(userList => this.setState({userList}))
+    }
+
+    render() {
+        return this.props.children(this.state.userList)
+    }
+}
+
+const Demo = (id) = (<UserListWrap id={id}>
+    {(userList) => JSON.stringfy(userList)}
+</UserListWrap>)
+
 ```
+* render-props嵌套难以阅读
+* 声明多余中间函数
+

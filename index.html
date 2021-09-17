@@ -25,7 +25,7 @@
 		</section>
         <section>
 		  	<section>
-			  	<h3>提出问题</h3>
+			  	<h3>(一) 提出问题</h3>
 			  	<p class='fragment' style="text-align:left">React Hook是什么 *</p>
 				<p class='fragment' style="text-align:left">React Hook解决了什么问题 *</p>
 				<p class='fragment' style="text-align:left">React Hook如何解决问题 (原理+实践) ***</p>
@@ -34,7 +34,7 @@
 			* React Hook是什么
 			* 官方：Hook 是 React 16.8 的新增特性。
 				它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性
-			*解释: 即不使用class即可实现状态，类生命周期特性*
+			* 解释: 即不使用class即可实现逻辑状态的复用，类生命周期特性*
 			</section>
 			<section data-markdown>
 				* useState
@@ -48,53 +48,48 @@
 				* useContext
 				* useDebugValue
 			</section>
-			<section data-markdown>
-			  #### React Hook解决了什么问题
-			  > Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性
-			</section>
-			<section data-markdown>
-			  #### 类组件的不足
-			  * 状态逻辑难以复用很难，需要使用render props 或者 HOC，造成组件嵌套过程，难以理解阅读
-			  * 复杂度高，逻辑分散 componentDidMount绑定事件，componentWillUnmount解除绑定
-			  * this指向问题
-			</section>
-			<section data-markdown>
-			  #### React Hook如何解决问题 (原理+实践)
-			  > React Hook如何解决问题 (原理+实践)
+			<section>
+			  类组件的不足
+			  <p class='fragment' style="text-align:left">1、状态逻辑难以复用，需要使用render props 或者 HOC，造成组件嵌套过程，难以理解阅读</p>
+			  <p class='fragment' style="text-align:left">2、复杂度高，逻辑分散 componentDidMount绑定事件，componentWillUnmount解除绑定</p>
+			  <p class='fragment' style="text-align:left">3、this指向问题</p>
+			  <p class='fragment' style="text-align:left">4、代码量较大</p>
 			</section>
 		 </section>
          <section>
-		  	<section>React Hook如何解决问题</section>
+		  	<section>
+			  (二) React Hook如何解决问题 (实践)
+			  <p class='fragment'>请看示例</p>
+			</section>
 		</section>
         </section>
-        
-		<section>实例</section>
         <section>
 			<section data-markdown="md/use-login.md"></section>
 			<section data-markdown="md/use-user-list.md"></section>
 			<section data-markdown="md/use-request.md"></section>
+			<section data-markdown="md/use-modal.md"></section>
+			<section data-markdown="md/use-state.md"></section>
+			<section>
+				小结
+				<p class='fragment'>1、以上示例解释了官方定义的不适用类组件复用状态,以及状态的衍生能力</p>
+				<p class='fragment'>2、下面示例解释何为类组件的其他能力(类生命周期能力)</p>
+			</section>
+			<section data-markdown="md/use-document-show.md"></section>
 			<section data-markdown="md/use-virtual-list.md"></section>
 			<section>
-				紧扣主题，如何封装状态，以及如何不使用hook使用react的其他特性
-* 封装状态
-  逻辑状态 =》 请求封装loading 倒计时，toggle = 》 状态，触发状态的方法
-        useLogin
-  dom状态 useSize useVirtual
-* 执行副作用 监听dom绑定事件
-useWatch
-useRequest 基于请求封装loading，error状态，重新触发状态的方法，竞态
-
-useUserList id => list 结合useRequest =》 
-
-useModal
-     常规使用需要声明visible，Modal
-     直接暴露出封装了visible
-
+				示例总结
+				<p class='fragment'>hook逻辑复用能力更强</p>
+				<p class='fragment'>hook访问dom，绑定事件更为清晰</p>
 			</section>
 		  </section>
         </section>
 		<section>
-			Fiber与Hook
+			<section>(三) 原理浅析 Fiber&Hook</section>
+			<section>
+				<p class='fragment'></p> 提出两个问题
+				<p class='fragment'>1、为什么要在函数组件内使用hook</p>
+				<p class='fragment'>2、为什么不能在条件语句中使用hook</p>
+			</section>
 			<section>
 				<p>
 				react大致原理的理解程度

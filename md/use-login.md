@@ -1,3 +1,4 @@
+* hook VS hoc
 * useLogin 封装登录状态
 
 ```tsx [5-15|17-28]
@@ -29,4 +30,7 @@ const withLogin = WrappedComponent => class extends React.Component {
     }
 }
 const Demo = withLogin(Index)
+
 ```
+* hoc多层嵌套问题
+* hoc变量冲突问题

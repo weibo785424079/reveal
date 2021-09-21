@@ -6,7 +6,7 @@ import React, { useCallback } from 'react';
 import { Input } from 'antd'
 import { useRequest, useDebounce } from '@tms/site-hook';
 
-const Demo = ({id}) => {
+const Demo = () => {
 	
     const [value, setValue] = useState(0); // 输入金额
 

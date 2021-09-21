@@ -27,14 +27,14 @@
 		  	<section>
 			  	<h3>(一) 提出问题</h3>
 			  	<p class='fragment' style="text-align:left">React Hook是什么 *</p>
-				<p class='fragment' style="text-align:left">React Hook解决了什么问题 *</p>
-				<p class='fragment' style="text-align:left">React Hook如何解决问题 (原理+实践) ***</p>
+				<p class='fragment' style="text-align:left">React Hook需要解决的问题 *</p>
+				<p class='fragment' style="text-align:left">React Hook如何解决问题 (实践+原理) ***</p>
 			</section>
 		  	<section data-markdown>
-			* React Hook是什么
+			  1.1 React Hook是什么
 			* 官方：Hook 是 React 16.8 的新增特性。
 				它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性
-			* 解释: 即不使用class即可实现逻辑状态的复用，类生命周期特性*
+			* 解释: 即不使用class即可实现逻辑状态的复用，类生命周期特性
 			</section>
 			<section data-markdown>
 				* useState
@@ -47,6 +47,9 @@
 				* useReducer
 				* useContext
 				* useDebugValue
+			</section>
+			<section>
+				1.2 hook需要解决的问题
 			</section>
 			<section>
 			  类组件的不足
@@ -85,25 +88,163 @@
 		  </section>
         </section>
 		<section>
-			<section>(三) 原理浅析 Fiber&Hook</section>
+			<section>(三) 原理浅析</section>
 			<section>
 				<p class='fragment'></p> 提出两个问题
 				<p class='fragment'>1、为什么要在函数组件内使用hook</p>
 				<p class='fragment'>2、为什么不能在条件语句中使用hook</p>
 			</section>
-			<section data-markdown="md/fiber.md"/>
-			<section>
-				<p>
-				react大致原理的理解程度
-				这边要和被分享人同步一下理解程度，不然很容易讲不清楚听不懂
-				首先要介绍fiber原理 ReactElement
-				然后引入hook初始化，更新过程
-				完整串联起来，说明组件hook的执行过程
-				常规的两个问题
-				为什么要在组件内使用hook
-				为什么不能再条件中使用hook
-				</p>
+			<section data-markdown>
+				*fiber*
+				```txt
+					fiber是一个执行单元，也是一种数据结构
+					fiber，把渲染/更新过程拆分为一个个小块的任务，
+					通过合理的调度机制来调控时间，指定任务执行的时机，
+					从而降低页面卡顿的概率，提升页面交互体验。通过Fiber架构，
+					让reconcilation过程变得可被中断。适时地让出CPU执行权，
+					可以让浏览器及时地响应用户的交互
+				```
 			</section>
+			<section data-markdown>
+				```tsx
+					type Fber = {
+						type: any, // 对于类组件，它指向构造函数；对于DOM元素，它指定HTML tag
+						key: null | string, // 唯一标识符
+						stateNode: any, // 保存对组件的类实例，DOM节点或与fiber节点关联的其他React元素类型的引用
+						child: Fiber | null, // 第一个子节点
+						sibling: Fiber | null, // 字节点的下一个节点
+						return: Fiber | null, // 父节点
+						tag: WorkTag, // 定义fiber操作的类型, 详见https://github.com/facebook/react/blob/master/packages/react-reconciler/src/ReactWorkTags.js
+						nextEffect: Fiber | null, // 指向下一个节点的指针
+						updateQueue: mixed, // 用于状态更新，回调函数，DOM更新的队列
+						memoizedState: any, // 用于创建输出的fiber状态
+						pendingProps: any, // 已从React元素中的新数据更新，并且需要应用于子组件或DOM元素的props
+						memoizedProps: any, // 在前一次渲染期间用于创建输出的props
+						// ……     
+					}
+				```
+			</section>
+			<section data-markdown>
+				*hook*
+				* 在  React  内部会维护一个名为  Dispatcher  的对象，这是所有  Hooks API 的调度中心，每当  React 执行到  Hooks API  的时候，都会解析当前的调度对象，之后使用当前调度对象内部对应的  Hooks API，因此也可以理解为这是调用  Hooks   的入口
+			</section>
+			<section data-markdown>
+				##### 示例一 #####
+				```jsx
+					// 错误示例
+					const App = () => {
+						const [count, setCount] = useState(0);
+						
+						if (count === 0) {
+							useEffect(() => { console.log('effect2'); }, [count]);
+						}
+						
+						const hasCount = useMemo(() => count > 0, [count])
+						
+						return (...)
+					}
+
+				```
+			</section>
+			<section>
+				<img src='./images/link-hook.webp' alt=''>
+			</section>
+			<section data-markdown>
+				###### 示例一更新过程 ######
+				```txt
+				当count变化且不为 0 时， App 组件需要进入更新阶段，React会从当前挂载的  
+				hooks 链表中取出第一个节点并执行  updateState 逻辑，同时
+				workInProgressHook 指针下移，至此是没有任何问题的，
+				因为当前count不为 0，继续向下执行，这时取出来的hook是Effect Hook，
+				并使用该hook对象执行updateMemo的逻辑，这显然是不对的， 
+				memoHook.memoizedState 存储的是一个数组，
+				而effectHooks.memoizedState 存储的是一个  effect 对象。
+				```
+			</section>
+			<section data-markdown>
+				*effect hook*
+				
+				* 在处理 Hooks API 时，有两个 hooks 比较特殊， useEffect 以及 useLayoutEffect ，专用于处理副作用的 hooks，在执行副作用 hooks 时， React 会额外创建一个 effect 对象。
+			</section>
+			<section data-markdown>
+			```js
+				// 生成一个 effect 并挂载到 effect 链表的末尾
+				function pushEffect(tag, create, destroy, deps) {
+				  const effect = {
+					tag,
+					create,
+					destroy,
+					deps,
+					// Circular
+					next: (null: any),
+				  };
+				  // currentlyRenderingFiber.updateQueue.lastEffect 永远指向最后一个 effect 对象，
+				  let componentUpdateQueue = currentlyRenderingFiber.updateQueue;
+				  // 将 updateQueue 整理成 { lastEffect: null } 的结构
+				  if (componentUpdateQueue === null) {
+					componentUpdateQueue = { lastEffect: null };
+					currentlyRenderingFiber.updateQueue = componentUpdateQueue;
+					componentUpdateQueue.lastEffect = effect.next = effect;
+				  } else {
+					  const lastEffect = componentUpdateQueue.lastEffect;
+					if (lastEffect === null) {
+					  componentUpdateQueue.lastEffect = effect.next = effect;
+					} else {
+					  // 单向循环链表新增一个节点
+					  const firstEffect = lastEffect.next;
+					  lastEffect.next = effect;
+					  effect.next = firstEffect;
+					  componentUpdateQueue.lastEffect = effect;
+					}
+				  }
+				  return effect;
+				}
+			```
+			</section>
+			<section>
+				<h3>hook挂载过程</h3>
+				<img src="./images/hook.webp"/>
+			</section>
+			<section data-markdown>
+				##### 示例二 #####
+				```jsx
+					const App = () => {
+						const [count, setCount] = useState(0);
+						
+						const computedVal = useMemo(() => count + 1, [count]);
+						
+						useLayoutEffect(() => {
+							console.log('did mount');
+						}, []);
+						
+						useEffect(() => {
+							console.log(count);
+						}, [count]);
+						
+						return <span>{ count }</span>
+					}
+
+				```
+			</section>
+			<section>
+				<h6>示例二生成hook链表</h6>
+				<img src="./images/fiber-hook.webp"/>
+			</section>
+		</section>
+		<section>
+			<div>问：为什么要在函数组件顶层调用hook</div>
+			答：hook在组件对应fiber以链表存储，不在顶层调用无法确定每次刷新调用的顺序和数量一致
+		</section>
+		<section>
+			<div>问：为什么不能在条件判断中调用hook</div>
+			答：理由同上
+		</section>
+		<section data-markdown>
+			*useEffect & useLayoutEffect*
+		</section>
+		<section>
+			* useEffect大多数时候放在调度的宏任务中异步执行
+			* useLayoutEffect与componentDidMount中同步执行
 		</section>
 		<section>
 			<h3>总结</h3>

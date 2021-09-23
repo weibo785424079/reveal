@@ -1,5 +1,5 @@
 * hook VS hoc
-* useLogin 封装登录状态
+* useLogin 封装需要登录才能查看的组件
 
 ```tsx [5-15|17-28]
 import React, { useState } from 'react';

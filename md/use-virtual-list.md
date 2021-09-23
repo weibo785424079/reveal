@@ -32,6 +32,5 @@ export default () => {
   );
 };
 ```
-* 体现hook访问dom的便捷
-* 绑定dom事件
-* 根据dom状态封装数据的能力
+* 体现hook访问dom的便捷，自定义hook可以抛出ref或者外部传入ref，使用自由
+* 基于ref 访问dom，绑定事件，逻辑更聚合

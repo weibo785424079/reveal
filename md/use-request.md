@@ -10,9 +10,9 @@ const Demo = ({id}) => {
 		fetch(id).then(userList => userList), 
 	[id])
 
-	const { result, loading, error, run } = useRequest(getUserList);
+	const { result: userList, loading, error, run } = useRequest(getUserList);
 
-	return loading ? null : result
+	return loading ? null : userList
 }
 
 const useUserList = (id) => {
@@ -23,8 +23,8 @@ const useUserList = (id) => {
 };// id => userList => loading + error + result
 
 const Demo = ({id}) => {
-	const { result, loading, error, run } = useUserList(id);
-	return loading ? null : result
+	const { result: userList, loading, error, run } = useUserList(id);
+	return loading ? null : userList
 }
 
 ```

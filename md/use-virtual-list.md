@@ -35,9 +35,9 @@ export default () => {
 useEffect(() => {
   const listener = () => console.log('滚动')
 
-  ref.current.addEventListener('scrlll', listenner)
+  ref.current.addEventListener('scroll', listenner)
 
-  return () => ref.current.removeEventListener('scrlll', listenner)
+  return () => ref.current.removeEventListener('scroll', listenner)
 
 }, [])
 

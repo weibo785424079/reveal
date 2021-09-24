@@ -40,5 +40,5 @@ const Demo = withProvider(() => {
 });
 
 ```
-* 省去繁琐的connect mapPropsToState
-* useReducer + useContext 实现小型redux
+* 省去繁琐的connect mapPropsToState, Context.Consumer
+* useReducer + useContext 实现小型redux, 范围内的状态管理,因为模块划分不如redux

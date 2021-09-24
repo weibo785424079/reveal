@@ -25,3 +25,4 @@ const Demo = () => {
 
 ```
 * 一行代码获取元素滚动位置
+* 对比hoc和render-props优势极大

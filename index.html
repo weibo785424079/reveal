@@ -77,7 +77,7 @@
 				小结
 				<p class='fragment'>
 					1、以上示例解释了官方定义的: *它可以让你在不编写 class 的情况下使用 state*, 
-					以及在复用状态逻辑上hook是轻量，便捷的
+					在复用状态逻辑上hook是轻量，便捷的
 				</p>
 				<p class='fragment'>
 					2、例如我们有一个获取验证码并且每60s才能重新发送请求的需求，
@@ -141,6 +141,10 @@
 
 				```txt
 					2.与fiber的关系，hook链表挂载在fiber的memoizedState属性上
+				```
+
+				```txt
+					3.各种hook的状态挂载在hook的memoizedState属性上
 				```
 
 			</section>
@@ -254,7 +258,8 @@
 			<section data-markdown>
 				*原理浅析小结*
 				* 组件挂载阶段在fiber对象memoizedStates属性上生成hooks链表
-				* 组件更新阶段依对应fiber memoizedStates属性上依次取出hook执行更新操作
+				* hook的状态挂载在hook的memoizedStates属性上
+				* 组件更新阶段在fiber memoizedStates属性上依次取出hook执行更新操作
 			</section>
 		</section>
 		<section>

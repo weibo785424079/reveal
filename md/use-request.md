@@ -1,5 +1,5 @@
 * 基于hook的状态转换 hook + hook，体现hook状态组合和衍生能力
-* useRequest给请求添加状态
+* useRequest给请求添加状态，十分灵活
   
 ```tsx [1-12|14-19|21-24]
 import React, { useCallback } from 'react';
@@ -32,7 +32,6 @@ const Demo = ({id}) => {
 ---
 
 ```tsx
-
 // useRequest 源码
 import { useCallback, useEffect, useReducer, useRef } from 'react';
 
@@ -143,7 +142,8 @@ function useRequest<R = any, T extends(...args: any[]) => any = (...args: any[])
 
   return { run, ...value };
 }
-
+// 本质是依赖一个被useCallback包裹的函数，
+// 函数执行前后 可以做到延时loading，自动请求, 解决竞态, 返回结果和错误
 export default useRequest;
 
 ```

@@ -26,11 +26,12 @@ const withLogin = WrappedComponent => class extends React.Component {
     }
 
     render() {
-        return this.state.logined ? <WrappedComponent {...this.props}/> : null;
+        return this.state.logined ? <WrappedComponent logined={this.state.logined} {...this.props}/> : null;
     }
 }
 const Demo = withLogin(Index)
 
 ```
-* hoc多层嵌套问题
+* hoc多层嵌套代码阅读难度提升
 * hoc变量冲突问题
+* hoc的ts类型难写，props被分成两部分

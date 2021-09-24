@@ -1,7 +1,7 @@
 * hook VS render-props
 * useUserList 通过id获取人员列表 id => useList
 
-```tsx [3-15|18-35]
+```tsx [3-15|17-35]
 import React, { useState } from 'react';
 
 const useUserList = (id) => {
@@ -14,7 +14,7 @@ const useUserList = (id) => {
     return userList
 }
 
-const Demo = ({id}) => {
+const Demo = ({ id }) => {
     const userList = useUserList(id);
 };
 
@@ -32,11 +32,13 @@ class UserListWrap extends React.Component{
     }
 }
 
-const Demo = (id) = (<UserListWrap id={id}>
-    {(userList) => JSON.stringfy(userList)}
-</UserListWrap>)
+const Demo = (id) = (
+    <UserListWrap id={id}>
+        {(userList) => <Component userList={userList} />}
+    </UserListWrap>
+)
 
 ```
-* render-props嵌套难以阅读
+* render-props嵌套，打乱代码结构,难以阅读
 * 声明多余中间函数
 
